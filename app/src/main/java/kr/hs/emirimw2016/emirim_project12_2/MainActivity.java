@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnInit = findViewById(R.id.btn_init);
         Button btnInput = findViewById(R.id.btn_input);
         Button btnSearch = findViewById(R.id.btn_search);
+        Button btnDelete = findViewById(R.id.btn_delete);
+        Button btnUpdate = findViewById(R.id.btn_update);
 
         dbHelper = new MyDBHelper(this);
         btnInit.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +40,25 @@ public class MainActivity extends AppCompatActivity {
                 db.close();
             }
         });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db = dbHelper.getWritableDatabase();
+                db.execSQL("update groupTB set count = "+editCount.getText().toString()+ " where name='"+editName.getText().toString()+"';");
+                db.close();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db = dbHelper.getWritableDatabase();
+                db.execSQL("delete from groupTB where name='"+editName.getText().toString()+"';");
+                db.close();
+            }
+        });
+
         btnInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
